@@ -36,7 +36,7 @@ jobs:
           REG=ghcr.io
           IMAGE=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
           DOCKER_IMAGE=${REG}/${IMAGE}
-          VERSION=nool-
+          VERSION=${{ env.GIT_HASH }}
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=nightly
           elif [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -49,7 +49,6 @@ jobs:
           elif [[ $GITHUB_REF == refs/pull/* ]]; then
             VERSION=pr-${{ github.event.number }}
           fi
-          VERSION=${{ env.GIT_HASH }}
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
