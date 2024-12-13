@@ -11,7 +11,7 @@ RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -
 FROM phusion/baseimage:focal-1.2.0
 WORKDIR /app
 RUN apt-get install -y ca-certificates
-COPY --from=build_base /go/src/app/main /app/main
+COPY --from=build_base /go/src/app/nats-top /app/nats-top
 # Set the default command to run the application
 ENTRYPOINT [ "nats-top" ]
 #
